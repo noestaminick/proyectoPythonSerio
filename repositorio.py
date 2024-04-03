@@ -1,5 +1,7 @@
 import hashlib
 
+
+
 #Gestión de contraseñas
 def leerContraseña():
     contraseñas={}
@@ -12,9 +14,12 @@ def leerContraseña():
 #Validación de la contraseña
 def verificarContraseña(usuario, contraseña):
     contraseñas=leerContraseña()
+    print(contraseñas)
     contraseñaHash=hashlib.md5(contraseña.encode()).hexdigest()
-    return contraseñas.get(usuario)==contraseñaHash
-
+    print(contraseñaHash)
+    print(contraseñas.get(usuario))
+    boolean = contraseñas.get(usuario)==contraseñaHash
+    print(boolean)
 #Leer libros del fichero
 
 def leer():
@@ -66,3 +71,13 @@ def borrar(libro):
             print("Libro borrado de la colección")
     else:
         print("Este libro no existe.")
+
+def main():
+    
+    nomUsuari = "Joan"
+    contrasenya = "contraseña123"
+    
+    verificarContraseña(nomUsuari, contrasenya)
+        
+if __name__ == '__main__':
+    main()    
