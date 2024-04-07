@@ -125,3 +125,13 @@ def editar():
         print("Libro añadido con éxito.")
     else:
         print("Este libro no existe.")
+
+def main():
+    
+    nomUsuari = "Joan"
+    contrasenya = "contraseña123"
+    
+    verificarContraseña(nomUsuari, contrasenya)
+        
+if __name__ == '__main__':
+    main()    
