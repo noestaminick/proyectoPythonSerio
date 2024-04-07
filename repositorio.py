@@ -88,16 +88,21 @@ def añadir():
 #borrar libros
 
 def borrar():
-    libro=input("Introduce el nombre del libro que quieres borrar: ")
+    elimina=input("Introduce el nombre del libro que quieres borrar: ")
     libros=leer()
     encuentro=False
     
-    if libro in libros:
-        libros.remove(libro)
-        with open("Llibres.txt", "w") as file:
-            for libro in libros:
-                file.write(libro +"\n")
-        print("Libro añadido con éxito.")
+    for libro in libros:
+        if libro.startswith(elimina):
+            libros.remove(libro)
+            encuentro=True
+            break
+    
+    if encuentro:
+        with open("Llibres.txt","w") as file:
+            for elimina in libros:
+                file.write(elimina+"\n")
+                
     else:
         print("Este libro no existe.")
 
@@ -105,21 +110,25 @@ def borrar():
  
 def editar():
     libroAnt=input("Introduce el nombre del libro a modificar: ")
-    titulo=input("Introduce el nuevo titulo del libro: ")
-    autor=input("introduce el nuevo autor del libro: ")
-    año=input("Introduce el nuevo año de publicación del libro: ")
-    genero=input("introduce el nuevo genero del libro: ")
-    isbn=input("introduce el nuevo ISBN del libro: ")
-    libroMod=f"{titulo}|{autor}|{año}|{genero}|{isbn}\n"
-    
     libros=leer()
-    if libroAnt in libros:
-        index=libros.index(libroAnt)
-        libros[index]=libroMod.strip()
+    encuentro=False
+    for index, libro in enumerate(libros):
+        if libro.startswith(libroAnt):
+            titulo=input("Introduce el nuevo titulo del libro: ")
+            autor=input("introduce el nuevo autor del libro: ")
+            año=input("Introduce el nuevo año de publicación del libro: ")
+            genero=input("introduce el nuevo genero del libro: ")
+            isbn=input("introduce el nuevo ISBN del libro: ")
+            libroNuevo=f"{titulo}|{autor}|{año}|{genero}|{isbn}\n"
+            libros[index]=libroNuevo
+            encuentro=True
+            break
+    
+    if encuentro:
         with open("Llibres.txt", "w") as file:
             for libro in libros:
                 file.write(libro+"\n")
-        print("Libro modificado con exito.")
+        print("libro modificado con exito.")
     
     else:
         print("Este libro no existe.")
