@@ -1,5 +1,7 @@
 import hashlib
 
+
+
 #Gestión de contraseñas
 def leerContraseña():
     contraseñas={}
@@ -10,11 +12,23 @@ def leerContraseña():
     return contraseñas
 
 #Validación de la contraseña
-def verificarContraseña(usuario, contraseña):
+def verificarContraseña():
+    counter=3
     contraseñas=leerContraseña()
-    contraseñaHash=hashlib.md5(contraseña.encode()).hexdigest()
-    return contraseñas.get(usuario)==contraseñaHash
-
+    while counter>0 and counter<4 :
+        usuario=input("Usuario: ")
+        contraseña=input("Contraseña: ")
+        contraseñaHash=hashlib.md5(contraseña.encode()).hexdigest()
+        if contraseñas.get(usuario)==contraseñaHash :
+            print("Sesion iniciada correctamente")
+            counter=counter+5
+        else:
+            counter=counter-1
+            print("La contraseña es incorrecta")
+            print("Numero de intentos restantes: ",counter)
+    if counter<=0:
+        print("Has superado el limite de intentos")
+        exit()
 #Leer libros del fichero
 
 def leer():
@@ -26,15 +40,14 @@ def leer():
 
 def muestraTodo():
     libros=leer()
-    libro=input("Introduce el nombre del libro.")
     for libro in libros:
-        print(libros)
+        print(libro)
 
 #muestra un libro
 
-def muestraLibro(libro):
+def muestraLibro():
     libros=leer()
-    libro=input("Introduce el nombre del libro.")
+    libro=input("Introduce el nombre del libro: ")
     if libro in libros:
         print (libro)
     else:
@@ -42,20 +55,26 @@ def muestraLibro(libro):
         
 #añadir libro
 
-def añadir(libro):
+def añadir():
+    titulo=input("Introduce el nombre del libro: ")
+    autor=input("Introduce el nombre del autor/a: ")
+    año=input("Introduce el año de publicación del libro: ")
+    genero=input("Introduce el genero del libro: ")
+    isbn=input("Introduce el ISBN del libro: ")
+    libro=f"{titulo}|{autor}|{año}|{genero}|{isbn}\n"
+    
     libros=leer()
-    libro=input("Introduce el nombre del libro a añadir")
-    if libro in libros:
+    if libro.strip() in libros:
         print("Este libro ya existe")
     
     else:
         with open("Llibres.txt", "a") as file:
-            file.write(libro + "|")
+            file.write(libro)
         print("Libro introducido con exito")
 
 #borrar libros
 
-def borrar(libro):
+def borrar():
     libros=leer()
     libro=input("Introduce el nombre del libro que quieres borrar: ")
     if libro in libros:
@@ -64,5 +83,28 @@ def borrar(libro):
             for libro in libros:
                 file.write(libro+"|")
             print("Libro borrado de la colección")
+    else:
+        print("Este libro no existe.")
+
+#editar libros
+ 
+def editar():
+    libroAnt=input("Introduce el nombre del libro a modificar: ")
+    titulo=input("Introduce el nuevo titulo del libro: ")
+    autor=input("introduce el nuevo autor del libro: ")
+    año=input("Introduce el nuevo año de publicación del libro: ")
+    genero=input("introduce el nuevo genero del libro: ")
+    isbn=input("introduce el nuevo ISBN del libro: ")
+    libroMod=f"{titulo}|{autor}|{año}|{genero}|{isbn}\n"
+    
+    libros=leer()
+    if libroAnt in libros:
+        index=libros.index(libroAnt)
+        libros[index]=libroMod.strip()
+        with open("Llibres.txt", "w") as file:
+            for libro in libros:
+                file.write(libro+"\n")
+        print("Libro modificado con exito.")
+    
     else:
         print("Este libro no existe.")
