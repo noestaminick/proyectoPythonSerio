@@ -1,6 +1,6 @@
 import hashlib
 
-
+libros=None
 
 #Gestión de contraseñas
 def leerContraseña():
@@ -32,9 +32,11 @@ def verificarContraseña():
 #Leer libros del fichero
 
 def leer():
-    with open("Llibres.txt", "r") as file:
-        libros=file.readlines()
-    return [libro.strip("|") for libro in libros]
+    global libros
+    if libros is None:
+        with open("Llibres.txt", "r") as file:
+            libros=[line.strip() for line in file]
+    return libros
 
 #muestra todos los libros
 
@@ -46,10 +48,15 @@ def muestraTodo():
 #muestra un libro
 
 def muestraLibro():
+    busca=input("Introduce el nombre del libro: ") 
     libros=leer()
-    libro=input("Introduce el nombre del libro: ")
-    if libro in libros:
-        print (libro)
+    encuentro=False
+    
+    for libro in libros:
+        if libro.startswith(busca):
+            print(libro)
+            encuentro=True
+            break
     else:
         print("Este libro no se encuentra en nuestra colección.")
         
@@ -61,7 +68,7 @@ def añadir():
     año=input("Introduce el año de publicación del libro: ")
     genero=input("Introduce el genero del libro: ")
     isbn=input("Introduce el ISBN del libro: ")
-    libro=f"{titulo}|{autor}|{año}|{genero}|{isbn}\n"
+    libro=f"{titulo}|{autor}|{año}|{genero}|{isbn}"
     
     libros=leer()
     if libro.strip() in libros:
@@ -69,14 +76,16 @@ def añadir():
     
     else:
         with open("Llibres.txt", "a") as file:
-            file.write(libro)
+            file.write("\n"+libro)
         print("Libro introducido con exito")
 
 #borrar libros
 
 def borrar():
-    libros=leer()
     libro=input("Introduce el nombre del libro que quieres borrar: ")
+    libros=leer()
+    encuentro=False
+    
     if libro in libros:
         libros.remove(libro)
         with open("Llibres.txt", "w") as file:
