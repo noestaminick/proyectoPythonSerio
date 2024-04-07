@@ -3,7 +3,7 @@ import hashlib
 import os
 def main():
     Flag=True
-    os.system('clear')
+    os.system('cls')
     print("Bienvenido al programa de la libreria CAN CASACOVERTA")
     print("Profavor, inicia sesion para utilizar el programa")
     print(" ")
@@ -26,16 +26,16 @@ def main():
                 muestraTodo()
             if eleccion==3:
                 añadir()
-                os.system('clear')
+                os.system('cls')
             if eleccion==4:
                 borrar()
-                os.system('clear')
+                os.system('cls')
             if eleccion==5:
                 editar()
-                os.system('clear')
+                os.system('cls')
             if eleccion==6:
                 Flag=False
-                os.system('clear')
+                os.system('cls')
             if eleccion>6 or eleccion==str:
                 print("No es una opcion valida")   
         except ValueError as e:

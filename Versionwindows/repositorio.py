@@ -96,8 +96,8 @@ def borrar():
         libros.remove(libro)
         with open("Llibres.txt", "w") as file:
             for libro in libros:
-                file.write(libro +"\n")
-        print("Libro añadido con éxito.")
+                file.write(libro+"|")
+            print("Libro borrado de la colección")
     else:
         print("Este libro no existe.")
 
