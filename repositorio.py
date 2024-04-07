@@ -55,14 +55,20 @@ def añadir(libro):
 
 #borrar libros
 
-def borrar(libro):
+def borrar():
+    elimina=input("Introduce el nombre del libro que quieres borrar: ")
     libros=leer()
-    libro=input("Introduce el nombre del libro que quieres borrar: ")
-    if libro in libros:
-        libros.remove(libro)
-        with open("Llibres.txt", "w") as file:
-            for libro in libros:
-                file.write(libro+"|")
-            print("Libro borrado de la colección")
+    encuentro=False
+    
+    for libro in libros:
+        if libro.startswith(elimina):
+            libros.remove(libro)
+            encuentro=True
+            break
+    if encuentro:
+        with open ("Llibres.txt", "w") as file:
+            for elimina in libros:
+                file.write(elimina+"\n")
+        print("Libro borrado con exito")
     else:
         print("Este libro no existe.")
