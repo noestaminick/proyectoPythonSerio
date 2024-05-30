@@ -26,16 +26,12 @@ def main():
                 muestraTodo()
             if eleccion==3:
                 añadir()
-                os.system('clear')
             if eleccion==4:
                 borrar()
-                os.system('clear')
             if eleccion==5:
                 editar()
-                os.system('clear')
             if eleccion==6:
                 Flag=False
-                os.system('clear')
             if eleccion>6 or eleccion==str:
                 print("No es una opcion valida")   
         except ValueError as e:

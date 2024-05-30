@@ -34,8 +34,11 @@ def verificarContraseña():
 def leer():
     global libros
     if libros is None:
-        with open("Llibres.txt", "r") as file:
-            libros=[line.strip() for line in file]
+        try:
+            with open("Llibres.txt", "r") as file:
+                libros=[line.strip() for line in file]
+        except FileNotFoundError:
+            print("Error: El fichero Llibres.txt no se ha encontrado.")
     return libros
 
 #muestra todos los libros
@@ -81,9 +84,9 @@ def añadir():
         print("Este libro ya existe")
     
     else:
-        with open("Llibres.txt", "a") as file:
-            file.write("\n"+libro)
-        print("Libro introducido con exito")
+            with open("Llibres.txt", "a") as file:
+                file.write("\n"+libro)
+            print("Libro introducido con exito")
 
 #borrar libros
 
@@ -102,7 +105,7 @@ def borrar():
         with open("Llibres.txt","w") as file:
             for elimina in libros:
                 file.write(elimina+"\n")
-                
+                print("Libro eliminado con exito.")
     else:
         print("Este libro no existe.")
 
